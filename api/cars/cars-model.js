@@ -9,10 +9,7 @@ const getById = (id) => {
 }
 
 const create = async (newCar) => {
-  const {vin, make, model, mileage, title, transmission} = newCar
-  const [id] = await db('cars').insert({
-    vin, make, model, mileage, title, transmission
-  })
+  const [id] = await db('cars').insert(newCar)
   return getById(id)
 }
 

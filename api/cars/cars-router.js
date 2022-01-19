@@ -20,8 +20,12 @@ router.get('/:id', checkCarId, (req, res, next) => {
     res.status(200).json(req.car)
 })
 
-router.post('/', (req, res, next) => {
-    Cars.create()
+router.post('/', checkCarPayload, (req, res, next) => {
+    Cars.create(req.body)
+        .then(newCar => {
+            res.status(201).json(newCar)
+        })
+        .catch(() => next())
 })
 
 module.exports = router
