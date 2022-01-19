@@ -34,8 +34,19 @@ const checkVinNumberValid = (req, res, next) => {
 
 }
 
-const checkVinNumberUnique = (req, res, next) => {
-
+const checkVinNumberUnique = async (req, res, next) => {
+  const { vin } = req.body
+  try {
+    const allCars = await Cars.getAll()
+    allCars.forEach(car => {
+      if (car.vin === vin) {
+        res.status(400).json({message: `vin ${vin} already exists`})
+      }
+    })
+    next()
+  } catch (err) {
+    next(err)
+  }
 }
 
 module.exports = {checkCarId, checkCarPayload, checkVinNumberValid, checkVinNumberUnique}
