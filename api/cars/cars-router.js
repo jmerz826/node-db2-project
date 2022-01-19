@@ -9,7 +9,11 @@ const {
 } = require('./cars-middleware')
 
 router.get('/', (req, res, next) => {
-
+    Cars.getAll()
+        .then(cars => {
+            res.status(200).json(cars)
+        })
+        .catch(() => next())
 })
 
 router.get('/:id', (req, res, next) => {
