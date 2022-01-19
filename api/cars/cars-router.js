@@ -16,12 +16,12 @@ router.get('/', (req, res, next) => {
         .catch(() => next())
 })
 
-router.get('/:id', (req, res, next) => {
-    
+router.get('/:id', checkCarId, (req, res, next) => {
+    res.status(200).json(req.car)
 })
 
 router.post('/', (req, res, next) => {
-    
+    Cars.create()
 })
 
 module.exports = router
