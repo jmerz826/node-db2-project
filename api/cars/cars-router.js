@@ -20,7 +20,7 @@ router.get('/:id', checkCarId, (req, res, next) => {
     res.status(200).json(req.car)
 })
 
-router.post('/',checkVinNumberUnique, checkCarPayload, (req, res, next) => {
+router.post('/',checkVinNumberUnique, checkCarPayload, checkVinNumberValid, (req, res, next) => {
     Cars.create(req.body)
         .then(newCar => {
             res.status(201).json(newCar)

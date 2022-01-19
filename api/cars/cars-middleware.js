@@ -31,7 +31,17 @@ const checkCarPayload = (req, res, next) => {
 }
 
 const checkVinNumberValid = (req, res, next) => {
-
+  // Not 100% sure what a valid VIN number entails
+  try {
+    const {vin} = req.body
+    if (vin.length > 3) {
+      next()
+    } else {
+      res.status(400).json({message: `vin ${vin} is invalid`})
+    }
+  } catch (err) {
+    next(err)
+  }
 }
 
 const checkVinNumberUnique = async (req, res, next) => {
